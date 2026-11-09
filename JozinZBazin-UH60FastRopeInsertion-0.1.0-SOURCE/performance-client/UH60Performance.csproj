@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net472</TargetFramework><LangVersion>latest</LangVersion><AssemblyName>UH60Performance</AssemblyName><Deterministic>true</Deterministic><SptRoot Condition="'$(SptRoot)' == ''">$(SPT_ROOT)</SptRoot><Version>0.1.0</Version><ContinuousIntegrationBuild>true</ContinuousIntegrationBuild><DebugType>none</DebugType><Copyright>Copyright (c) 2026 JozinZBazin</Copyright></PropertyGroup>
+ <ItemGroup>
+  <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3" PrivateAssets="all" />
+  <Reference Include="BepInEx"><HintPath>$(SptRoot)\BepInEx\core\BepInEx.dll</HintPath><Private>false</Private></Reference>
+  <Reference Include="0Harmony"><HintPath>$(SptRoot)\BepInEx\core\0Harmony.dll</HintPath><Private>false</Private></Reference>
+  <Reference Include="UnityEngine"><HintPath>$(SptRoot)\EscapeFromTarkov_Data\Managed\UnityEngine.dll</HintPath><Private>false</Private></Reference>
+  <Reference Include="UnityEngine.CoreModule"><HintPath>$(SptRoot)\EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+  <Reference Include="UnityEngine.AnimationModule"><HintPath>$(SptRoot)\EscapeFromTarkov_Data\Managed\UnityEngine.AnimationModule.dll</HintPath><Private>false</Private></Reference>
+  <Reference Include="UnityEngine.ParticleSystemModule"><HintPath>$(SptRoot)\EscapeFromTarkov_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath><Private>false</Private></Reference>
+ </ItemGroup>
+ <Target Name="GenerateReleasePin" BeforeTargets="CoreCompile">
+  <Error Condition="'$(UH60CoreSha256)' == ''" Text="Build using build.ps1; the exact paired core SHA256 is required." />
+  <WriteLinesToFile File="$(IntermediateOutputPath)ReleasePin.g.cs" Lines="namespace UH60Performance { internal static class ReleasePin { internal const string Sha256 = &quot;$(UH60CoreSha256)&quot;%3B } }" Overwrite="true" />
+  <ItemGroup><Compile Include="$(IntermediateOutputPath)ReleasePin.g.cs" /></ItemGroup>
+ </Target>
+</Project>

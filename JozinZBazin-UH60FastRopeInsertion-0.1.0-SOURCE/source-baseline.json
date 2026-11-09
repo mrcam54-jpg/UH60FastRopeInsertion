@@ -1,0 +1,230 @@
+{
+  "description": "Hashes of original own source files before documented publication-only transformations; no local paths or foreign assets.",
+  "files": [
+    {
+      "path": "client/AircraftDoorMotion.cs",
+      "sha256": "5F4BD49E461123B860FB498812E677FD3EAA7B2D16253557AB1CB16C05C346C5"
+    },
+    {
+      "path": "client/ApproachClearance.cs",
+      "sha256": "D9722CD9D18DE1267059075635A0B67E9036352AFE06C0E15E219368866BB747"
+    },
+    {
+      "path": "client/CabinChoreography.cs",
+      "sha256": "3D2E54A503F01CAB22475479C8843B80A1977E7FAAA6BECC317E1019D6DD6B20"
+    },
+    {
+      "path": "client/CabinClipData.cs",
+      "sha256": "50EF7E8DC07C3606A44E06FC403B1BB39EDDD4244D845C515CE5D69FD60BE64C"
+    },
+    {
+      "path": "client/CabinLighting.cs",
+      "sha256": "B8C3C8D5B801E99464D491D45D72BDCBDFF67A06156D6EEE852C914EC52EA63B"
+    },
+    {
+      "path": "client/CabinRopeBundle.cs",
+      "sha256": "49172B5C235AA95644C6FBB823D81D47466CCF81A3283049D100BAE86DF52D5E"
+    },
+    {
+      "path": "client/CabinWalkPath.cs",
+      "sha256": "8A4F29981B3921DEB926809D2D1B36EE982E2395B4EBCA239AEEC99EDC40DCCF"
+    },
+    {
+      "path": "client/CableTubeVisual.cs",
+      "sha256": "E9A9F985DA30FF5E4FD56262A1255A558D66CACE616E494EB871163FE94F276B"
+    },
+    {
+      "path": "client/CinematicActor.cs",
+      "sha256": "3107B184DCA45DA3D39952AFBFD77415561D83ADFE962020038CEB2AFFF9C517"
+    },
+    {
+      "path": "client/CinematicActor.UserCabin.cs",
+      "sha256": "F256B3724307ABE38CB4FCE4019033CE0CDAA5490BCB15A1C03215BA5541F05B"
+    },
+    {
+      "path": "client/CinematicDetailBubble.cs",
+      "sha256": "7847CEC782D6E35D5F40FDF02374985034A9C98791005E2574ABC31FF7AD906B"
+    },
+    {
+      "path": "client/CinematicEnvironment.cs",
+      "sha256": "9739BE4B91F8708B1CCD516BF294E66B8E97A3C82D161238ECE06BF4E8968FE0"
+    },
+    {
+      "path": "client/CinematicFieldOfView.cs",
+      "sha256": "9D7F206406CD687DACB30CCF9888473F6AEEAC59080EBE6EE1D8B8442210DF7B"
+    },
+    {
+      "path": "client/CinematicObservation.cs",
+      "sha256": "E80D54C8EA1C18F58B2E0CE02FC0218CF4A5590AEBE51F773DDC60CB9523F3C1"
+    },
+    {
+      "path": "client/CinematicVisibility.cs",
+      "sha256": "B7BC70ADF575FB692CAA8AE1AF1381CBE9FF03D3EA82271F0948D8030347B3FB"
+    },
+    {
+      "path": "client/DeploymentPanelLayout.cs",
+      "sha256": "62800D261D60BC3B8457C0D43EF83DEDA5F7FE4931608359A547D0B2888008F0"
+    },
+    {
+      "path": "client/DeploymentPolicy.cs",
+      "sha256": "7D0B63E8B8B93DC111A51644AAC2E5E7983A8B87770649F953CCBF2AD62EDB89"
+    },
+    {
+      "path": "client/IcebreakerAirframe.cs",
+      "sha256": "73C091DA9355028D214C0BE4A87F491DDB6B52512CB8DF76847ACFDC581F897C"
+    },
+    {
+      "path": "client/InfilIntegration.cs",
+      "sha256": "DA9A0D979F2E66DAD9F4E05C2C0E88A5338A7F9AD966F99F635E7618B0B07E47"
+    },
+    {
+      "path": "client/InsertionApi.cs",
+      "sha256": "01D7D1A2000EA5649EDB9CC87A17E0E13EBBBF4991B10C2F2B758A528FD88B10"
+    },
+    {
+      "path": "client/InsertionController.Authoring.cs",
+      "sha256": "50A2008FA5350403CA146C8052C570314B9C8CB3AE2290F6961E8FAF4887877D"
+    },
+    {
+      "path": "client/InsertionController.cs",
+      "sha256": "848D70A41131D7A44C5F3887ACFC4174454A432D96EC663B356D946127AA7383"
+    },
+    {
+      "path": "client/InsertionEffects.cs",
+      "sha256": "092418CAE0FB9F88960FCA18025AE7167F0DC5AF6296DC0FFD1735B193782BC5"
+    },
+    {
+      "path": "client/InsertionTiming.cs",
+      "sha256": "B01FE660B0601FFC607665C682452ABBD5CB22D8A385CC04D63C95B61ADD7F3C"
+    },
+    {
+      "path": "client/LandingBriefingText.cs",
+      "sha256": "71D58290D986ACB582412EA3F8EE3A215C95ED5EC73056D9206678AAE6F84628"
+    },
+    {
+      "path": "client/LandingGeometry.cs",
+      "sha256": "48FCDF133F2B54C599002E32C05D5C9D5CB16AEBAC4277FAD1E5155DEFD22F5D"
+    },
+    {
+      "path": "client/LandingSites.cs",
+      "sha256": "4BBC558E958FEBB044CED2DC93D8981836E2F2882F3F67FF56A22A2B9E198CEA"
+    },
+    {
+      "path": "client/LiveActorState.cs",
+      "sha256": "C5E61C858FC260D2A8863626CA4737995626C19962EF759110D805B813708A29"
+    },
+    {
+      "path": "client/MapSafeSectors.cs",
+      "sha256": "6161E996F930DF030127891C0706D046271489ECA059433ED2E0B817BC623E8C"
+    },
+    {
+      "path": "client/NativeCabinMotion.cs",
+      "sha256": "0F18BCDFDE373B994377C2FC96E782B710F939B0FDB4807DC002645EDCAD5F25"
+    },
+    {
+      "path": "client/NativeRopeConnector.cs",
+      "sha256": "FEFC4CDE610381C6EA681F2AAD21CABCB1C1322B007F481A140D346F79AEE8D6"
+    },
+    {
+      "path": "client/OriginalCableVisual.cs",
+      "sha256": "B0CAC4B90A3F455B4AE59DF3BF8E815EF03024424B9DE9480D045C307CF55193"
+    },
+    {
+      "path": "client/Plugin.cs",
+      "sha256": "B082787644CCCB841036DFE273A7DF568D44EE1F533535DCC21ED05F01E664C0"
+    },
+    {
+      "path": "client/PoseMath.cs",
+      "sha256": "063EF21A167BE0577B1866159D52126DFDD98F19DCF649798F842F30D55B7054"
+    },
+    {
+      "path": "client/PreRaidDeployment.cs",
+      "sha256": "1C59841D6625B7D48582974F2118258CF83128A83648896C835660513DFC0D3E"
+    },
+    {
+      "path": "client/PresentationMetrics.cs",
+      "sha256": "58FE66D9D9B448EA89E3B798D693BD7EC3B69A0FF298A7E38A0327440C50A819"
+    },
+    {
+      "path": "client/RopeGripSolver.cs",
+      "sha256": "31A546590C22AA0113D4BAFEC0D9759E8C2B630B77C9B7A4033D8D2CC55C0DAB"
+    },
+    {
+      "path": "client/SkeletonRestPose.cs",
+      "sha256": "7455766E59603F0BAD21A9E9FAE03AA1D4812B06250AAD98B293F7C8BA97954A"
+    },
+    {
+      "path": "client/SmoothieCompatibility.cs",
+      "sha256": "547D1CD225CACEA9CDC84899789A17A4860A71BD2DE6282A544B60BEBB5E8205"
+    },
+    {
+      "path": "client/SourceSceneEnvironment.cs",
+      "sha256": "624E1F325FE00C4E10D088B6F33DE5584ED55CF96C654B5C8A4A0EF8E797BB97"
+    },
+    {
+      "path": "client/SourceShaderState.cs",
+      "sha256": "DFCC7E828F4BBAD3A3CE28EFA17B81E81FAD91F1E230403D1BF8872AF9E7D291"
+    },
+    {
+      "path": "client/SquadResolver.cs",
+      "sha256": "66F793E310824AD0C571A19EB04AEE2D182529A15E1536681E9E0AE897EF6A25"
+    },
+    {
+      "path": "client/SteelRope.cs",
+      "sha256": "CAEEB1AE194D9E0D8879769761BDBD59566F2288FCD316A28F26B1EA4FBE37CB"
+    },
+    {
+      "path": "client/SupportedCabinPose.cs",
+      "sha256": "C3377F15CE10D6C6067EFC49248EFCAAF384B977F4142549D718BC1C181EECD5"
+    },
+    {
+      "path": "client/SupportedRopePose.cs",
+      "sha256": "0E050AA1C4D2F3710B39331BF46F8CA8690ED6816910A7CDE6F7D48CDA264133"
+    },
+    {
+      "path": "client/TacticalFlightEventRelay.cs",
+      "sha256": "1EB3F9DE59BBD95B226E41ED1DFB7A3E6852744D3FC719D8F6605190139C9009"
+    },
+    {
+      "path": "client/UH60FastRopeInsertion.csproj",
+      "sha256": "8EC787CFDD7A24DD1023727A2F7DB0ABD87D5F0EFC71403CA2A80B4D2D51FEE7"
+    },
+    {
+      "path": "client/Uh60Visual.cs",
+      "sha256": "7089881554A60F51FAD5B562D72FB72868529B82F4827DC257F7D59B975DE39E"
+    },
+    {
+      "path": "client/UserCabinPerformance.cs",
+      "sha256": "077612E227CDE1ABAE47432CCADEDAF756327E8E19F381FD3A47773E43F55BEB"
+    },
+    {
+      "path": "client/UserCabinTimeline.cs",
+      "sha256": "31EF0C91742829FA1593190EABFA8E97A35EED1EF689C0321664A1196394789B"
+    },
+    {
+      "path": "performance-client/AircraftProbe.cs",
+      "sha256": "2D0DF3F29D913D31285581A6D6FB74B8B4E40487A66F8FC62795590097AC792A"
+    },
+    {
+      "path": "performance-client/CableDeformation.cs",
+      "sha256": "4CB8F6988F32069A5578FAA2BEF8E76B58993A19EC70C48E1B3E100B576FA19B"
+    },
+    {
+      "path": "performance-client/PerformanceTelemetry.cs",
+      "sha256": "3323C8B72638AE4C57EB727E3EC4AA091709CA2F58DA47452F7418E56F662526"
+    },
+    {
+      "path": "performance-client/Plugin.cs",
+      "sha256": "D0A3E7E12144173CD0D28827F2469E1562E9C58398397AD6B47C4C808621B4A4"
+    },
+    {
+      "path": "performance-client/SkyPoseGate.cs",
+      "sha256": "364975A664D1FC4FD358E2FB9B9454CFDABC32C57E8C2694C07691F8CC790345"
+    },
+    {
+      "path": "performance-client/UH60Performance.csproj",
+      "sha256": "DB94F674874678FB0C15B8120CB03E29A7BF902E630B4254A884AAB43453D818"
+    }
+  ],
+  "cabinAnimationSha256": "75C16F3EBE2D4429945F1AFF83A094B5E5BEDB95E990DB9D7944B76075AF9853"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "JozinZBazin-UH60FastRopeInsertion",
+  "author": "JozinZBazin",
+  "version": "0.1.0",
+  "guid": "com.jozinzbazin.uh60fastropeinsertion",
+  "additionalPluginGuid": "com.jozinzbazin.uh60performance",
+  "license": "MIT",
+  "sptTarget": "4.1.6",
+  "status": "UNPUBLISHED_CANDIDATE",
+  "fikaSupported": false,
+  "publicSourceUrl": null,
+  "directDownloadUrl": null,
+  "virusTotalReports": [],
+  "cleanInstallRaidTest": "NOT_RUN",
+  "assetPolicy": "Read separately installed dependencies at runtime; do not redistribute their assets."
+}
