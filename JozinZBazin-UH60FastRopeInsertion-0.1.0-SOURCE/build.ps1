@@ -58,9 +58,11 @@ foreach ($file in ($docs+@('build.ps1','.gitignore','source-baseline.json','PUBL
 }
 $sourceZip=Join-Path $output 'JozinZBazin-UH60FastRopeInsertion-0.1.0-SOURCE.zip'
 Compress-Archive -LiteralPath @(Get-ChildItem -LiteralPath $source -Force | Select-Object -ExpandProperty FullName) -DestinationPath $sourceZip -CompressionLevel Optimal
+$releaseMetadata=Get-Content -Raw -LiteralPath (Join-Path $root 'release.json') | ConvertFrom-Json
 $summary=[ordered]@{ status='CANDIDATE_NOT_APPROVED_FOR_PUBLICATION'; version='0.1.0'; coreSha256=$coreHash;
     packageSha256=(Get-FileHash -LiteralPath $zip).Hash; sourceSha256=(Get-FileHash -LiteralPath $sourceZip).Hash;
-    packageFiles=$manifest.Count; publicRepository=$null; virusTotalReports=@(); liveTest='NOT_RUN';
+    packageFiles=$manifest.Count; publicRepository=$releaseMetadata.publicSourceUrl;
+    virusTotalReports=@($releaseMetadata.virusTotalReports); liveTest='NOT_RUN';
     gameInstallationModified=$false; output=$output }
 [IO.File]::WriteAllText((Join-Path $output 'build-report.json'),(ConvertTo-Json -Depth 6 -InputObject $summary),$utf8)
 Write-Output "Candidate and exact public sources prepared: $output"

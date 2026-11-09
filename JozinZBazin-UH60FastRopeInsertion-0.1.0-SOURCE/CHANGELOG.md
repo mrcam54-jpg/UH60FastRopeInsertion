@@ -9,6 +9,8 @@
 - Paired performance/diagnostic module; benefit in the actual game not yet verified.
 - Foreign flight/appearance resources read from separate installed dependencies.
 - Portable authored cabin data and clean installation layout; no game files bundled.
+- 2026-11-10 documentation refresh: actual public repository and both VirusTotal reports
+  added. Previously scanned DLLs and all source code/pose data unchanged; no recompile.
 
 No public release date or live validation is asserted. See PUBLICATION_CHANGES.md
 and the release checklist for candidate-specific changes and remaining gates.

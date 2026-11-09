@@ -6,11 +6,30 @@
   "additionalPluginGuid": "com.jozinzbazin.uh60performance",
   "license": "MIT",
   "sptTarget": "4.1.6",
-  "status": "UNPUBLISHED_CANDIDATE",
+  "status": "UNPUBLISHED_EXPERIMENTAL_CANDIDATE",
   "fikaSupported": false,
-  "publicSourceUrl": null,
+  "publicSourceUrl": "https://github.com/mrcam54-jpg/UH60FastRopeInsertion",
+  "codeReferenceCommit": "0e0bb3c8fa1d18ed3738ad10d12469d62c8a90cc",
+  "suggestedReleaseTag": "v0.1.0",
+  "suggestedGitHubPrerelease": true,
   "directDownloadUrl": null,
-  "virusTotalReports": [],
+  "virusTotalReports": [
+    {
+      "file": "UH60FastRopeInsertion.dll",
+      "sha256": "dcfd9ad1a0265c340d42c7f85aaa49b6a5e7a7a4376a744932316da448ec62dd",
+      "url": "https://www.virustotal.com/gui/file/dcfd9ad1a0265c340d42c7f85aaa49b6a5e7a7a4376a744932316da448ec62dd/detection",
+      "detectionsAtReview": "0/70",
+      "analysisTime": "2026-11-09T23:55:14+03:00"
+    },
+    {
+      "file": "UH60Performance.dll",
+      "sha256": "53268b31446b74ea3e9842be346afc220423c73853aaff1d87bd64182d9d5386",
+      "url": "https://www.virustotal.com/gui/file/53268b31446b74ea3e9842be346afc220423c73853aaff1d87bd64182d9d5386/detection",
+      "detectionsAtReview": "0/71",
+      "analysisTime": "2026-11-09T23:56:24+03:00"
+    }
+  ],
   "cleanInstallRaidTest": "NOT_RUN",
+  "authorDeclinedGameTest": true,
   "assetPolicy": "Read separately installed dependencies at runtime; do not redistribute their assets."
 }
