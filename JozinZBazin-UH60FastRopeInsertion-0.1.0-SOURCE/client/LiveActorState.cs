@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using EFT;
 using UnityEngine;
 
@@ -14,6 +15,12 @@ namespace UH60FastRopeInsertion
         private bool _released;
         private readonly Vector3 _originalPosition;
         private readonly Quaternion _originalRotation;
+        private readonly object _mover;
+        private readonly MethodInfo _moverTeleport;
+        private readonly MethodInfo _followerGrace;
+        private BotLandingCache _landingCache;
+        private float _handoffElapsed;
+        private int _handoffObserved;
 
         internal readonly SquadMember Member;
         internal Vector3 LandingPosition;
@@ -34,6 +41,11 @@ namespace UH60FastRopeInsertion
             Member = member;
             _originalPosition = member.Player != null ? member.Player.Position : Vector3.zero;
             _originalRotation = member.Player != null ? member.Player.Transform.rotation : Quaternion.identity;
+            _mover = member.Bot?.GetType().GetProperty("Mover",
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(member.Bot, null);
+            _moverTeleport = _mover?.GetType().GetMethod("Teleport", new[] { typeof(Vector3) });
+            _followerGrace = member.Follower?.GetType().GetMethod("BeginTeleportGrace", new[] { typeof(Vector3) });
+            if(_mover!=null)_landingCache=BotLandingCache.Bind(_mover);
         }
 
         internal void FreezeAndHide()
@@ -73,7 +85,7 @@ namespace UH60FastRopeInsertion
             try
             {
                 TryStopBot(Member.Bot);
-                Player.Teleport(position, false);
+                TransferPosition(position);
                 if (Player.MovementContext != null)
                 {
                     Player.MovementContext.Rotation = new Vector2(rotation.eulerAngles.y, 0f);
@@ -85,6 +97,51 @@ namespace UH60FastRopeInsertion
             Plugin.Log.LogInfo("Live actor handed off: " + Player.Profile?.Nickname + " at " + Player.Position
                 + "; body=" + BodyHeight().ToString("F3") + "; alive=" + Player.HealthController?.IsAlive
                 + "; movement/AI resumed, hidden renderers restored.");
+        }
+
+        private void TransferPosition(Vector3 position)
+        {
+            // BotMover owns the native navigation anchor and relocation permission. Moving
+            // only Player lets the next mover tick snap the bot to its previous linked path.
+            if (_moverTeleport != null)
+            {
+                if(!BotLandingGeometry.TryAnchor(position,out Vector3 navAnchor))
+                    throw new InvalidOperationException("No same-floor local bot NavMesh at touchdown: "+position);
+                try { _moverTeleport.Invoke(_mover, new object[] { position }); }
+                catch (TargetInvocationException ex) when (ex.InnerException != null)
+                { ExceptionDispatchInfo.Capture(ex.InnerException).Throw(); throw; }
+                // Stop again AFTER teleport so the path's stop point is the new location.
+                // Replace ALL relink/history anchors while AI still belongs to the scene.
+                TryStopBot(Member.Bot);
+                // The mover can switch between default/near-door path controllers while
+                // waiting. Bind the controller that is CURRENT at the actual handoff.
+                _landingCache=BotLandingCache.Bind(_mover);
+                _landingCache.Rebase(position,navAnchor,Time.time);
+                Plugin.Log.LogInfo("Native bot landing cache rebased: "+Player.Profile?.Nickname+"; "+_landingCache.Describe());
+            }
+            else
+            {
+                if (Member.Bot != null) throw new InvalidOperationException("Bot has no supported native mover teleport; refusing a root-only handoff.");
+                Player.Teleport(position, false);
+            }
+            // Optional PIT API, not a hard DLL dependency. Retarget its short existing grace
+            // window to this landing rather than its old spawn. No persistent follow orders.
+            if (_followerGrace != null)
+                try { _followerGrace.Invoke(Member.Follower, new object[] { position }); }
+                catch (Exception ex) { Plugin.Log.LogWarning("PIT landing grace unavailable: " + ex.Message); }
+        }
+
+        internal void ObserveHandoff(float deltaTime)
+        {
+            if (!_released || Player == null || _handoffObserved >= 5) return;
+            _handoffElapsed += deltaTime;
+            float threshold = _handoffObserved == 0 ? 0f : _handoffObserved == 1 ? .6f : _handoffObserved == 2 ? 2f : _handoffObserved == 3 ? 5f : 10f;
+            if (_handoffElapsed < threshold) return;
+            _handoffObserved++;
+            Plugin.Log.LogInfo("Handoff observation: " + Player.Profile?.Nickname + " t=" + _handoffElapsed.ToString("F2")
+                + " at " + Player.Position + "; landingDeltaSquared=" + (Player.Position-LandingPosition).sqrMagnitude.ToString("F3")
+                + "; alive=" + Player.HealthController?.IsAlive + "; frozen=" + IsFrozen(Player)
+                + "; "+(_landingCache?.Describe()??"main player"));
         }
 
         internal static bool IsFrozen(Player player) { return player != null && FrozenPlayers.Contains(player); }
@@ -130,7 +187,7 @@ namespace UH60FastRopeInsertion
                 {
                     if (Player != null)
                     {
-                        Player.Teleport(_originalPosition, false);
+                        TransferPosition(_originalPosition);
                         if (Player.MovementContext != null)
                         {
                             Player.MovementContext.Rotation = new Vector2(_originalRotation.eulerAngles.y, 0f);

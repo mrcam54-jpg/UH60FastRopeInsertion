@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace UH60Performance
 {
-    [BepInPlugin(Guid,"JozinZBazin-UH60Performance","0.1.1")]
+    [BepInPlugin(Guid,"JozinZBazin-UH60Performance","0.1.2")]
     [BepInDependency("com.jozinzbazin.uh60fastropeinsertion")]
     [DefaultExecutionOrder(10000)]
     public sealed class Plugin:BaseUnityPlugin
@@ -81,7 +81,7 @@ namespace UH60Performance
                 _skyComponents=AccessTools.Property(_todSky.FieldType,"Components")??throw new MissingMemberException("TOD_Sky.Components");
                 _domeTransform=AccessTools.Property(_skyComponents.PropertyType,"DomeTransform")??throw new MissingMemberException("TOD_Components.DomeTransform");
                 _harmony.Patch(AccessTools.Method(skyType,"OnPreCull"),prefix:Hook(nameof(SkyPrefix)),postfix:Hook(nameof(SkyPostfix)));
-                Logger.LogInfo("Public 0.1.0 performance module installed for the exact paired core; no flight/pose changes.");
+                Logger.LogInfo("Public 0.1.2 performance module installed for the exact paired core; no flight/pose changes.");
             }
             catch(Exception error)
             {

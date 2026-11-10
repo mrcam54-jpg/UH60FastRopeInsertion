@@ -191,6 +191,7 @@ namespace UH60FastRopeInsertion
 
         private void LateUpdate()
         {
+            foreach(var actor in _actors) if(actor.Released) actor.Live?.ObserveHandoff(Time.deltaTime);
             long started=System.Diagnostics.Stopwatch.GetTimestamp();
             try { UpdatePresentation(); }
             catch (Exception ex)
@@ -800,7 +801,6 @@ namespace UH60FastRopeInsertion
                     Vector3 startRoot = startAxis - Vector3.up * SupportedRopePose.ContactHeight - ropeFacing * Vector3.forward * DescentBodyOffset;
                     if (!actor.HasDescentStart) { actor.DescentStartRoot = startRoot; actor.HasDescentStart = true; }
                     Vector3 root = Vector3.Lerp(actor.DescentStartRoot, actor.Live.LandingPosition, progress);
-                    Vector3 cablePoint=rope.EvaluateDescent(progress);
                     if (raw > 0.84f)
                     {
                         float landBlend = SmootherStep((raw - 0.84f) / 0.16f);
@@ -808,10 +808,7 @@ namespace UH60FastRopeInsertion
                     }
                     float orbit = Mathf.Sin(progress * Mathf.PI) * (actor.Double.Index%2==0?5f:-5f);
                     Quaternion rotation = Quaternion.AngleAxis(orbit, Vector3.up) * ropeFacing;
-                    Vector3 axis=new Vector3(cablePoint.x,root.y+SupportedRopePose.ContactHeight,cablePoint.z);
-                    Vector3 finalAxis=(actor.Side<0?_leftGround:_rightGround)+Vector3.up*SupportedRopePose.ContactHeight;
-                    float settle=SmootherStep(Mathf.InverseLerp(.80f,1f,progress));
-                    axis.x=Mathf.Lerp(axis.x,finalAxis.x,settle);axis.z=Mathf.Lerp(axis.z,finalAxis.z,settle);
+                    Vector3 axis=rope.AtHeight(root.y+SupportedRopePose.ContactHeight);
                     // Body orbits the SAME axis as both palms; it cannot drift on a
                     // separate interpolated XZ path while the hands chase the cable.
                     Vector3 body=axis-rotation*Vector3.forward*DescentBodyOffset;
@@ -820,9 +817,17 @@ namespace UH60FastRopeInsertion
                     continue;
                 }
 
-                Vector3 groundAxis = (actor.Side < 0 ? _leftGround : _rightGround) + Vector3.up * SupportedRopePose.ContactHeight;
+                // Keep the body on the same visible strand through foot contact. No late
+                // blend to a separate ground-axis XZ and no lateral hop at the pose switch.
+                Vector3 groundAxis = rope.AtHeight(actor.Live.LandingPosition.y+SupportedRopePose.ContactHeight);
+                Vector3 grounded=groundAxis-actor.Live.LandingRotation*Vector3.forward*DescentBodyOffset;
+                grounded.y=actor.Live.LandingPosition.y;
+                actor.Live.LandingPosition=grounded;
+                actor.Double.LandingPosition=grounded;
+                float touchdown=Mathf.Clamp01((local-duration)/InsertionTiming.Touchdown);
                 actor.Double.ApplyTouchdownPose(actor.Live.LandingPosition, actor.Live.LandingRotation, groundAxis,
-                    Mathf.Clamp01((local-duration)/InsertionTiming.Touchdown));
+                    touchdown);
+                actor.Double.BlendToGameplayPose(Mathf.InverseLerp(.38f,1f,touchdown));
                 if(local>=duration+InsertionTiming.Touchdown)ReleaseActor(actor);
             }
             if (_actors.All(actor => actor.Released || !actor.SlideSoundStarted)) _effects.EndSlide();

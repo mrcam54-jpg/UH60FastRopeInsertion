@@ -879,6 +879,13 @@ namespace UH60FastRopeInsertion
             ResetPose();_ropePose.Land(position,rotation,axis,progress);SetHeadLook(0f,0f);
         }
 
+        internal void BlendToGameplayPose(float weight)
+        {
+            // Same exact skin hierarchy: finish on the live animator's CURRENT pose before
+            // swapping renderers. Never change a real pawn's animator, hands or inventory.
+            GameplayPoseBlend.Apply(_sourceToClone,Root,weight);
+        }
+
         internal void ApplyExitPose(Vector3 seat, Quaternion seatRotation, Vector3 supportFloor, Vector3 outside,
             Quaternion ropeRotation, Vector3 ropeAxis, float progress, int cabinRole)
         {

@@ -153,6 +153,7 @@ namespace UH60FastRopeInsertion
         {
             return EvaluateCable(Mathf.Clamp01(progress) * Mathf.Max(0.5f, _top.y - _ground.y));
         }
+        internal Vector3 AtHeight(float height) { return RopeDescentPath.AtHeight(_path,height); }
         internal Vector3 EvaluateCable(float arcMetres)
         {
             float sample = Mathf.Clamp01(arcMetres / Mathf.Max(0.001f, _deployedLength)) * (RenderCount - 1);

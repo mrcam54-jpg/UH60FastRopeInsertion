@@ -14,6 +14,8 @@ namespace UH60FastRopeInsertion
             internal Transform[] Joints;
             internal Vector3 TipAxis;
             internal Quaternion[] Bind;
+            internal Vector3[] FlexAxes;
+            internal Vector3[] Directions;
         }
         private readonly Transform _root,_upper,_lower,_palm;
         private readonly bool _left;
@@ -56,6 +58,19 @@ namespace UH60FastRopeInsertion
             if(Vector3.Dot(normal,root.forward)<0f)normal=-normal;
             if(normal.sqrMagnitude<.0000001f)throw new InvalidOperationException("Degenerate anatomical palm frame: "+palm.name);
             _palmFrame=Quaternion.Inverse(palm.rotation)*Quaternion.LookRotation(longitudinal,normal);
+            // Establish each anatomical hinge ONCE in canonical rest space. A shortest-arc
+            // ball-joint solve can pick the other side of the rope and hyperextend PIP/DIP.
+            foreach(var finger in _fingers)
+            {
+                finger.FlexAxes=new Vector3[3];finger.Directions=new Vector3[3];
+                for(int j=0;j<3;j++)
+                {
+                    Transform joint=finger.Joints[j];
+                    Vector3 direction=j<2?finger.Joints[j+1].position-joint.position:joint.rotation*finger.TipAxis;
+                    finger.Directions[j]=Quaternion.Inverse(joint.rotation)*direction.normalized;
+                    finger.FlexAxes[j]=Quaternion.Inverse(joint.rotation)*Vector3.Cross(direction,normal).normalized;
+                }
+            }
             _palmBind=palm.localRotation;
             _owned=upper.GetComponentsInChildren<Transform>(true);_from=new Quaternion[_owned.Length];
             _armBind=_owned.Select(t=>t.localRotation).ToArray();
@@ -116,14 +131,15 @@ namespace UH60FastRopeInsertion
                         /(2f*distance*ContactRadius),-1f,1f))*Mathf.Rad2Deg;
                     float sense=Vector3.Dot(Vector3.Cross(cableAxis,radial),longitudinal)>0f?1f:-1f;
                     Vector3 target=centre+Quaternion.AngleAxis(sense*angle,cableAxis)*radial.normalized*ContactRadius;
-                    if((target-start).sqrMagnitude>.0000001f)
-                        joint.rotation=Quaternion.FromToRotation(end-start,target-start)*joint.rotation;
-                    // A short little-finger tip previously curled all the way back
-                    // into its own proximal segment. Bound anatomical flexion instead
-                    // of treating each phalanx as an unconstrained ball joint.
-                    float flex=Quaternion.Angle(finger.Bind[j],joint.localRotation);
-                    float limit=j==2?65f:105f;
-                    if(flex>limit)joint.localRotation=Quaternion.Slerp(finger.Bind[j],joint.localRotation,limit/flex);
+                    Vector3 hinge=joint.rotation*finger.FlexAxes[j];
+                    Vector3 restDirection=joint.rotation*finger.Directions[j];
+                    Vector3 projected=Vector3.ProjectOnPlane(target-start,hinge);
+                    float flex=projected.sqrMagnitude>.0000001f
+                        ?Vector3.SignedAngle(restDirection,projected,hinge):0f;
+                    float limit=j==0?85f:j==1?100f:65f;
+                    // Positive flexion only. Preserve the joint's bind roll and prohibit
+                    // lateral twist/negative flexion rather than clamping an unsigned angle.
+                    joint.localRotation=finger.Bind[j]*Quaternion.AngleAxis(Mathf.Clamp(flex,0f,limit),finger.FlexAxes[j]);
                 }
             Vector3 thumbTarget=contact+normal*.038f-longitudinal*.016f+cableAxis*.025f;
             CinematicActor.SolveTwoBone(_thumb[0],_thumb[1],_thumb[2],thumbTarget,

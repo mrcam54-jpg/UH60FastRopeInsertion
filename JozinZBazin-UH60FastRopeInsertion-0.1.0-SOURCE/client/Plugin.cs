@@ -18,8 +18,8 @@ namespace UH60FastRopeInsertion
         public const string PluginGuid = "com.jozinzbazin.uh60fastropeinsertion";
         public const string PluginName = "JozinZBazin-UH60FastRopeInsertion";
         // BepInEx 5 parses this as System.Version; prerelease suffixes cause the plug-in to be skipped.
-        public const string PluginVersion = "0.1.1";
-        public const string BuildLabel = "publication-0.1.1";
+        public const string PluginVersion = "0.1.2";
+        public const string BuildLabel = "publication-0.1.2";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> Enabled;
