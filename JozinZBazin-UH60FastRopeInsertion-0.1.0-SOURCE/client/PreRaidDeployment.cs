@@ -76,9 +76,9 @@ namespace UH60FastRopeInsertion
             background.raycastTarget = false;
             ToggleGroup group = _panel.AddComponent<ToggleGroup>();
             group.allowSwitchOff = false;
-            _heading = Label("Heading", template._headerLabel, "СПОСОБ ВЫСАДКИ", 20f);
-            _helicopter = CloneToggle(template, group, "Helicopter", "ВЫСАДКА С ВЕРТОЛЁТА", 16f);
-            _standard = CloneToggle(template, group, "Standard", "ОБЫЧНОЕ ПОЯВЛЕНИЕ", 368f);
+            _heading = Label("Heading", template._headerLabel, UiText.Get("DEPLOYMENT METHOD"), 20f);
+            _helicopter = CloneToggle(template, group, "Helicopter", UiText.Get("HELICOPTER INSERTION"), 16f);
+            _standard = CloneToggle(template, group, "Standard", UiText.Get("STANDARD SPAWN"), 368f);
             _helicopter.Toggle.onValueChanged.AddListener(on => Select(on, DeploymentMode.Helicopter));
             _standard.Toggle.onValueChanged.AddListener(on => Select(on, DeploymentMode.Standard));
             _description = Label("Description", template._headerLabel, string.Empty, 16f);
@@ -168,6 +168,9 @@ namespace UH60FastRopeInsertion
                 if (_helicopter.IsToggled != selected) _helicopter.Toggle.ToggleSilent(selected);
                 if (_standard.IsToggled == selected) _standard.Toggle.ToggleSilent(!selected);
                 _description.text = DeploymentPolicy.Description(available, Plugin.SelectedDeployment.Value);
+                _heading.text = UiText.Get("DEPLOYMENT METHOD");
+                _helicopter._headerLabel.text = UiText.Get("HELICOPTER INSERTION");
+                _standard._headerLabel.text = UiText.Get("STANDARD SPAWN");
                 _layoutDirty=true;
             }
             finally { _refreshing = false; }

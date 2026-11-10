@@ -62,4 +62,5 @@ foreach(var role in clip.Roles)
             Check(!float.IsNaN(pose.Position.x)&&!float.IsNaN(pose.Rotation.w),"finite production sample");
         }
 Reject<InvalidDataException>(()=>CabinClipData.Parse("bad header"),"invalid CSV rejected");
-Console.WriteLine("PASS publication contracts: "+checks+" checks. Synthetic bundle API and production CSV parser/sampler; NOT a Unity/game test.");
+LocalizationContracts.Run(Check);
+Console.WriteLine("PASS publication contracts: "+checks+" checks. Synthetic bundle API, production CSV/localization/policy; NOT a Unity/game test.");

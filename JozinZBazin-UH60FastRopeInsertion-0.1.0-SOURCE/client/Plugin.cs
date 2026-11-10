@@ -18,8 +18,8 @@ namespace UH60FastRopeInsertion
         public const string PluginGuid = "com.jozinzbazin.uh60fastropeinsertion";
         public const string PluginName = "JozinZBazin-UH60FastRopeInsertion";
         // BepInEx 5 parses this as System.Version; prerelease suffixes cause the plug-in to be skipped.
-        public const string PluginVersion = "0.1.0";
-        public const string BuildLabel = "publication-candidate-1";
+        public const string PluginVersion = "0.1.1";
+        public const string BuildLabel = "publication-0.1.1";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> Enabled;
@@ -47,6 +47,7 @@ namespace UH60FastRopeInsertion
         private void Awake()
         {
             Log = Logger;
+            UiText.LanguageSource = GameLocale.Read;
             UserCabinActions=Config.Bind("06. Cabin editor","Animate user poses",true,
                 "Add authored flight reactions, team gestures, coil push/kick and continuous exits to the edited cabin poses. Requires Use edited flight animation. Frozen per scene; repeat after changing.");
             Enabled = Config.Bind("01. General", "Enabled", true,
@@ -107,6 +108,7 @@ namespace UH60FastRopeInsertion
             var harmony=new Harmony(PluginGuid);
             harmony.PatchAll(typeof(Plugin).Assembly);
             InfilIntegration.Install(harmony);
+            SettingsLocalization.Install();
             gameObject.AddComponent<InsertionController>();
             Logger.LogInfo(PluginName + " " + PluginVersion + " (" + BuildLabel + ") loaded (standalone scene; Black Division Alliance is not referenced)." );
         }
@@ -119,7 +121,7 @@ namespace UH60FastRopeInsertion
         private static void Prefix(GameWorld __instance)
         {
             // Consume the confirmed selection BEFORE Infil's raid-start postfix clears its store.
-            LandingRequest.BeginRaid(__instance,__instance.LocationId);
+            LandingRequest.BeginRaid(__instance,__instance.LocationId,!InfilIntegration.Ready);
         }
         private static void Postfix(GameWorld __instance)
         {

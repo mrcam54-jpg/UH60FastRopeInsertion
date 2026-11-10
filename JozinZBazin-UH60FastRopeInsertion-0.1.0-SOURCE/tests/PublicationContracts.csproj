@@ -4,5 +4,13 @@
     <Compile Include="../client/CabinClipData.cs" Link="CabinClipData.cs" />
     <Compile Include="../client/PoseMath.cs" Link="PoseMath.cs" />
     <Compile Include="../client/InstalledFlightAsset.cs" Link="InstalledFlightAsset.cs" />
+    <Compile Include="../client/UiText.cs" Link="UiText.cs" />
+    <Compile Include="../client/DeploymentPolicy.cs" Link="DeploymentPolicy.cs" />
+    <Compile Include="../client/LandingBriefingText.cs" Link="LandingBriefingText.cs" />
+    <Compile Include="../client/LandingSites.cs" Link="LandingSites.cs" />
+    <Compile Include="../client/AnnotatedLandingSites.cs" Link="AnnotatedLandingSites.cs" />
+    <Compile Include="../client/LandingPlacement.cs" Link="LandingPlacement.cs" />
+    <Compile Include="../client/MapSafeSectors.cs" Link="MapSafeSectors.cs" />
+    <Compile Include="../client/InsertionApi.cs" Link="InsertionApi.cs" />
   </ItemGroup>
 </Project>

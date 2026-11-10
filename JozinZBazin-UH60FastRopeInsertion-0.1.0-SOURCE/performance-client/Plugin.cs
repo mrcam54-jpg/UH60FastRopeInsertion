@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace UH60Performance
 {
-    [BepInPlugin(Guid,"JozinZBazin-UH60Performance","0.1.0")]
+    [BepInPlugin(Guid,"JozinZBazin-UH60Performance","0.1.1")]
     [BepInDependency("com.jozinzbazin.uh60fastropeinsertion")]
     [DefaultExecutionOrder(10000)]
     public sealed class Plugin:BaseUnityPlugin

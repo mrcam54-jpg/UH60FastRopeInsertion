@@ -43,10 +43,8 @@ namespace UH60FastRopeInsertion
                     "Interchange — outer south-east approach"),
                 ["lighthouse"] = Sector("lighthouse", -385f, 24f, -512f, 36f, 16f, 214f, 34f,
                     "Lighthouse — southern coastal perimeter"),
-                ["sandbox"] = Sector("sandbox", 102f, 28f, 315f, 32f, 15f, 12f, 190f,
-                    "Ground Zero — northern perimeter"),
-                ["sandbox_high"] = Sector("sandbox_high", 102f, 28f, 315f, 32f, 15f, 12f, 190f,
-                    "Ground Zero high level — northern perimeter"),
+                // Ground Zero (sandbox AND sandbox_high) is deliberately excluded: dense high-rises.
+                // No sector means manual replay/API calls cannot bypass the pre-raid restriction.
                 ["shoreline"] = Sector("shoreline", -918f, -58f, 255f, 42f, 16f, 272f, 88f,
                     "Shoreline — western perimeter"),
                 ["tarkovstreets"] = Sector("tarkovstreets", 274f, 5f, 517f, 30f, 17f, 34f, 214f,

@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
- <PropertyGroup><TargetFramework>net472</TargetFramework><LangVersion>latest</LangVersion><AssemblyName>UH60Performance</AssemblyName><Deterministic>true</Deterministic><SptRoot Condition="'$(SptRoot)' == ''">$(SPT_ROOT)</SptRoot><Version>0.1.0</Version><ContinuousIntegrationBuild>true</ContinuousIntegrationBuild><DebugType>none</DebugType><Copyright>Copyright (c) 2026 JozinZBazin</Copyright></PropertyGroup>
+ <PropertyGroup><TargetFramework>net472</TargetFramework><LangVersion>latest</LangVersion><AssemblyName>UH60Performance</AssemblyName><Deterministic>true</Deterministic><SptRoot Condition="'$(SptRoot)' == ''">$(SPT_ROOT)</SptRoot><Version>0.1.1</Version><ContinuousIntegrationBuild>true</ContinuousIntegrationBuild><DebugType>none</DebugType><Copyright>Copyright (c) 2026 JozinZBazin</Copyright></PropertyGroup>
  <ItemGroup>
   <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3" PrivateAssets="all" />
   <Reference Include="BepInEx"><HintPath>$(SptRoot)\BepInEx\core\BepInEx.dll</HintPath><Private>false</Private></Reference>

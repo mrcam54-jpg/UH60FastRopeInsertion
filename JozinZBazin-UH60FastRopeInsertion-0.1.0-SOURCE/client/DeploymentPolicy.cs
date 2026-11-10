@@ -7,7 +7,7 @@ namespace UH60FastRopeInsertion
 
     internal enum InsertionAvailability
     {
-        Available, Disabled, AutomaticDisabled, Scav, Transition, NoLocation, Enclosed, Unsupported
+        Available, Disabled, AutomaticDisabled, Scav, Transition, NoLocation, Enclosed, Unsupported, HighRise
     }
 
     internal static class DeploymentPolicy
@@ -21,6 +21,8 @@ namespace UH60FastRopeInsertion
             if (transition) return InsertionAvailability.Transition;
             if (string.IsNullOrWhiteSpace(location)) return InsertionAvailability.NoLocation;
             string id = location.Trim();
+            if (id.Equals("sandbox", StringComparison.OrdinalIgnoreCase)
+                || id.Equals("sandbox_high", StringComparison.OrdinalIgnoreCase)) return InsertionAvailability.HighRise;
             if (id.StartsWith("factory4", StringComparison.OrdinalIgnoreCase)
                 || id.Equals("laboratory", StringComparison.OrdinalIgnoreCase)) return InsertionAvailability.Enclosed;
             if (!hasSector || id.Equals("terminal", StringComparison.OrdinalIgnoreCase)) return InsertionAvailability.Unsupported;
@@ -37,15 +39,16 @@ namespace UH60FastRopeInsertion
             switch (availability)
             {
                 case InsertionAvailability.Disabled:
-                case InsertionAvailability.AutomaticDisabled: return "Вертолётная высадка сейчас недоступна.";
-                case InsertionAvailability.Scav: return "Для Дикого — наземный вход.";
-                case InsertionAvailability.Transition: return "Продолжение пути из соседнего района.";
-                case InsertionAvailability.NoLocation: return "Выберите район прибытия.";
+                case InsertionAvailability.AutomaticDisabled: return UiText.Get("Helicopter insertion is currently unavailable.");
+                case InsertionAvailability.Scav: return UiText.Get("Scavs enter on foot.");
+                case InsertionAvailability.Transition: return UiText.Get("Continuing from the neighbouring area.");
+                case InsertionAvailability.NoLocation: return UiText.Get("Select an arrival area.");
+                case InsertionAvailability.HighRise: return UiText.Get("Ground Zero: helicopter insertion is unavailable among high-rise buildings.");
                 case InsertionAvailability.Enclosed:
-                case InsertionAvailability.Unsupported: return "В этом районе доступен наземный вход.";
+                case InsertionAvailability.Unsupported: return UiText.Get("Only ground entry is available in this area.");
                 default: return requested == DeploymentMode.Helicopter
-                    ? "UH-60. Высадка отряда по тросам."
-                    : "Начало рейда с наземной позиции.";
+                    ? UiText.Get("UH-60. Squad fast-rope insertion.")
+                    : UiText.Get("Start the raid from a ground position.");
             }
         }
     }

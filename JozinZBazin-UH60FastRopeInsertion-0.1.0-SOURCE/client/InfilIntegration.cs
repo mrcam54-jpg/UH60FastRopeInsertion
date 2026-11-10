@@ -71,7 +71,7 @@ namespace UH60FastRopeInsertion
                 var nearest=matching.OrderBy(p=>Vector3.SqrMagnitude((Vector3)p.Position-site.Sector.Seed)).Take(1).ToArray();
                 if(nearest.Length==0)continue;
                 object spot=Activator.CreateInstance(_spotType);
-                Put(spot,"Label",site.Label);Put(spot,"Position",site.Sector.Seed);Put(spot,"Where",site.Name);
+                Put(spot,"Label",site.Label);Put(spot,"Position",site.Sector.Seed);Put(spot,"Where",LandingBriefingText.Name(site));
                 Put(spot,"PointIds",new HashSet<string>(nearest.Select(p=>p.Id)));
                 Put(spot,"PointPositions",new List<Vector3>{site.Sector.Seed});list.Add(spot);
             }
@@ -97,7 +97,7 @@ namespace UH60FastRopeInsertion
             if(text==null)return;
             Transform panel=text.transform.parent;
             var title=panel.Find("Title")?.GetComponent<TextMeshProUGUI>();
-            if(title!=null)title.text="ВЫБОР ЗОНЫ ВЫСАДКИ UH-60\n<size=60%>"+location.LocalizedName+"</size>";
+            if(title!=null)title.text=UiText.Get("UH-60 LANDING ZONE")+"\n<size=60%>"+location.LocalizedName+"</size>";
             var help=panel.Find("Help")?.GetComponent<TextMeshProUGUI>();
             if(help!=null)help.text=LandingBriefingText.Help;
             var selected=Get(Get(__instance,"_selected"),"Spot");
@@ -105,7 +105,23 @@ namespace UH60FastRopeInsertion
             text.text=LandingBriefingText.Description(site,selected!=null);
             var confirm=panel.Find("CONFIRM")?.GetComponent<DefaultUIButton>();
             if(confirm!=null){confirm.SetRawText(LandingBriefingText.Confirm,22);confirm._minWidth=260f;confirm.UpdateMinWidth();}
-            panel.Find("BACK")?.GetComponent<DefaultUIButton>()?.SetRawText("НАЗАД",22);
+            panel.Find("BACK")?.GetComponent<DefaultUIButton>()?.SetRawText(UiText.Get("BACK"),22);
+            var refresh=text.GetComponent<LandingLocaleRefresh>()??text.gameObject.AddComponent<LandingLocaleRefresh>();
+            refresh.Owner=__instance;
+            refresh.Russian=UiText.Russian;
+        }
+
+        internal sealed class LandingLocaleRefresh:MonoBehaviour
+        {
+            internal object Owner;
+            internal bool Russian;
+            private float _next;
+            private void Update()
+            {
+                if(Time.unscaledTime<_next)return;
+                _next=Time.unscaledTime+0.5f;
+                if(Owner!=null && Russian!=UiText.Russian)Describe(Owner);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@
     <OutputType>Library</OutputType>
     <AssemblyName>UH60FastRopeInsertion</AssemblyName>
     <RootNamespace>UH60FastRopeInsertion</RootNamespace>
-    <Version>0.1.0</Version><ContinuousIntegrationBuild>true</ContinuousIntegrationBuild><DebugType>none</DebugType><Copyright>Copyright (c) 2026 JozinZBazin</Copyright>
+    <Version>0.1.1</Version><ContinuousIntegrationBuild>true</ContinuousIntegrationBuild><DebugType>none</DebugType><Copyright>Copyright (c) 2026 JozinZBazin</Copyright>
     <LangVersion>latest</LangVersion>
     <Nullable>disable</Nullable>
     <Deterministic>true</Deterministic>

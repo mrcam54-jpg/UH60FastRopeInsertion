@@ -52,6 +52,15 @@ namespace UH60FastRopeInsertion
         internal static bool TrySurface(Vector3 near, out Vector3 surface)
         { return TrySurface(near, out surface, out _); }
 
+        // PNGs specify X/Z only. Resolve the highest real surface at that exact X/Z; never
+        // use a distant spawn's height to teleport to a roof, underground or another floor.
+        internal static bool TryMarkedSurface(Vector3 hint,out Vector3 surface,out string reason)
+        {
+            surface=hint;
+            if(!FirstWorldRay(hint+Vector3.up*512f,1024f,out RaycastHit highest,out reason))return false;
+            return TrySurface(highest.point,out surface,out reason);
+        }
+
         private static bool TrySurface(Vector3 near, out Vector3 surface, out string reason)
         {
             surface = near;

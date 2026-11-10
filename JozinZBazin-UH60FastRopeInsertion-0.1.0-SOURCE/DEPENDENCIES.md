@@ -13,8 +13,11 @@ Version references below are not claims that the new public UH60 build passed a 
 | Dynamic Maps | Optional for UH60; required by Infil | 1.2.1 | [Interactive maps](https://sp-mod.com/mod/1431/dynamic-maps) |
 | PIT Fireteam | Optional; needed for friendly-bot roster | Local adapter reference: 0.10.3; current public 1.1.1 UNVERIFIED | [Squad provider, formerly Please Invite Teammates](https://sp-mod.com/mod/2676/pit-fireteam) |
 
-Without the optional map pair: automatic default LZ. Without recognized PIT:
-solo insertion. Those absences must be tested, not just inferred from soft hooks.
+Without a working Infil map adapter: a random marked LZ on the seven configured
+maps, trying another marked LZ if validation fails. The original Icebreaker default
+is retained. Ground Zero is excluded. Without recognized PIT: solo insertion.
+These paths have offline checks, but actual map geometry and runtime behaviour
+still require a raid test.
 Do not assume an older or newer version is supported merely because it loads.
 
 ## Required dependencies of the required mods

@@ -369,20 +369,11 @@ namespace UH60FastRopeInsertion
             _aircraft.AttachAirframe(_airframe);
             List<SquadMember> members = SquadResolver.Resolve(_world.MainPlayer, 5);
             _useRightRope=members.Count>=3;
-            Vector3 inbound = YawDirection(_sector.ApproachBearing);
-            Quaternion routeRotation = Quaternion.LookRotation(inbound, Vector3.up);
-            // Sample once, before transporting anyone. Validate both ACTUAL door sockets against
-            // every candidate; a clear centre is insufficient when a door hangs over a roof edge.
-            _aircraft.PreviewTacticalHover(_sector.Seed, routeRotation);
-            _hoverLeftOffset = _aircraft.GetDoorAnchor(-1) - _sector.Seed;
-            _hoverRightOffset = _aircraft.GetDoorAnchor(1) - _sector.Seed;
-            _previewLeftFacing = _aircraft.GetRopeFacing(-1);
-            _previewRightFacing = _aircraft.GetRopeFacing(1);
-            SetState(SceneState.ValidatingSector, "checking actual left/right door corridors: " + _sector.Description);
-            if (!TryFindSafePoint(_sector, out _landing, out _validation))
-            { Fail("safe point rejected before flight: " + _validation); yield break; }
-            if(LandingRequest.Current!=null && !_aircraft.ValidateChosenApproach(_landing,routeRotation,out string approachReason))
-            { Fail("selected LZ approach rejected before flight: "+approachReason);yield break; }
+            yield return PlanLanding(manual);
+            if(!_landingPlanned)
+            { Fail("no safe marked LZ/approach accepted before flight: "+_validation);yield break; }
+            Quaternion routeRotation=_plannedRouteRotation;
+            Vector3 inbound=routeRotation*Vector3.forward;
             Plugin.Log.LogInfo("Safe sector accepted: " + _sector.LocationId + " " + _landing + " — " + _validation
                 + "; hover socket offsets L=" + _hoverLeftOffset + " R=" + _hoverRightOffset);
             _aircraft.PackedRopeLength = _hoverLeftOffset.y - (_leftGround.y - _landing.y) + 2.8f;
