@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+*.bundle
+*.dll
+*.pdb
+*.blend*
+*.zip
+*.7z
+.env*
+captures/
+package/
+output-*/

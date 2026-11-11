@@ -1,0 +1,18 @@
+{
+  "checkedOn": "2026-11-09",
+  "host": { "spt": "4.1.6", "platform": "Windows", "mode": "offline" },
+  "required": [
+    { "guid": "com.manimal.icebreaker", "versionReference": "1.1.3", "url": "https://sp-mod.com/mod/2866/manimals-icebreaker-backport", "bundled": false },
+    { "guid": "com.tylevo.tacticalservicescontrol", "versionReference": "1.3.13", "url": "https://sp-mod.com/mod/2791/tylevos-tactical-service-control", "bundled": false }
+  ],
+  "recommendedOptional": [
+    { "guid": "com.hj.duckcam", "versionReference": "1.0.0", "url": "https://sp-mod.com/mod/3245/duckcam", "bundled": false, "runtimeTest": "PENDING" },
+    { "guid": "net.liquidwarp.infil", "exactAdapterVersion": "2.1.0", "url": "https://sp-mod.com/mod/3202/infil", "requires": "com.mpstark.dynamicmaps", "bundled": false },
+    { "guid": "com.mpstark.dynamicmaps", "exactAdapterVersion": "1.2.1", "url": "https://sp-mod.com/mod/1431/dynamic-maps", "bundled": false },
+    { "guid": "xyz.pit.fireteam", "localAdapterReference": "0.10.3", "currentPublicVersionUnverified": "1.1.1", "url": "https://sp-mod.com/mod/2676/pit-fireteam", "bundled": false }
+  ],
+  "transitiveRequirements": "DEPENDENCIES.md; install complete upstream releases and follow their version-specific requirements",
+  "privateBdaCampaign": "not required; existing private exact-hash adapter is incompatible with this public core",
+  "fikaSupported": false,
+  "publicCandidateCleanRaidTest": "NOT_RUN"
+}
